@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'pt_BR',
     url: '/',
-    images: [{ url: '/images/og-sobrado.jpg', width: 1200, height: 1600, alt: 'Sala integrada do sobrado no bairro São João' }]
+    images: [{ url: '/images/og-sobrado.jpg', width: 400, height: 534, alt: 'Sala integrada do sobrado no bairro São João' }]
   },
   twitter: {
     card: 'summary_large_image',
