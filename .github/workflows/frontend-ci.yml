@@ -1,0 +1,52 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [main, feat/landing-imersiva]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Verify frontend
+        run: npm run verify
+
+      - name: Audit critical dependencies
+        run: npm audit --audit-level=critical
+
+      - name: Persist generated lockfile
+        if: github.event_name == 'push' && github.ref_name == 'feat/landing-imersiva'
+        shell: bash
+        run: |
+          if git status --porcelain package-lock.json | grep -q '^??'; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add package-lock.json
+            git commit -m 'chore: add frontend lockfile'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
