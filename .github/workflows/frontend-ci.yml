@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   verify:
@@ -23,10 +23,11 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          package-manager-cache: false
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
 
-      - name: Install dependencies and refresh lockfile
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
       - name: Verify frontend
         run: npm run verify
@@ -39,15 +40,3 @@ jobs:
 
       - name: Browser and accessibility checks
         run: npm run test:e2e
-
-      - name: Persist lockfile changes
-        if: github.event_name == 'push' && github.ref_name == 'feat/landing-imersiva'
-        shell: bash
-        run: |
-          if ! git diff --quiet -- package-lock.json || git status --porcelain package-lock.json | grep -q '^??'; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add package-lock.json
-            git commit -m 'chore: refresh frontend lockfile'
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-          fi
