@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { siteUrl } from '@/lib/site';
 import './globals.css';
+import './accessibility.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -1,12 +1,13 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-test('desktop journey loads, starts the tour and has no serious accessibility violations', async ({ page }) => {
+test('core journey loads, starts the tour and has no serious accessibility violations', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveTitle(/Sobrado para Alugar/i);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Seu novo lar');
 
-  await page.getByRole('link', { name: /Entrar no imóvel/i }).click();
+  const hero = page.getByLabel('Seu novo lar espera por você');
+  await hero.getByRole('link', { name: 'Entrar no imóvel' }).click();
   await expect(page).toHaveURL(/#tour$/);
   await expect(page.getByRole('heading', { name: 'Caminhe pelos ambientes' })).toBeVisible();
 
