@@ -21,6 +21,16 @@
   :root {
     --header-height: 72px;
   }
+
+  /* Visibility is immediate when opening so focus can enter the menu.
+     It is delayed only while closing so the opacity/transform exit remains visible. */
+  .site-nav {
+    transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+  }
+
+  .site-nav.is-open {
+    transition: opacity .18s ease, transform .18s ease, visibility 0s linear 0s;
+  }
 }
 
 /* Reduced motion must preserve every real photograph, only removing motion. */
