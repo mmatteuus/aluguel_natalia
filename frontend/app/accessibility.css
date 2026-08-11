@@ -1,4 +1,8 @@
 /* WCAG AA contrast mapping for semantic accent labels. */
+:root {
+  --header-height: 84px;
+}
+
 .eyebrow {
   color: var(--accent-strong);
 }
@@ -6,4 +10,60 @@
 .hero .eyebrow,
 .tour .eyebrow {
   color: var(--accent-soft);
+}
+
+/* Keep the sticky tour navigation clear of the fixed site header. */
+.tour__rail {
+  top: var(--header-height);
+}
+
+@media (max-width: 980px) {
+  :root {
+    --header-height: 72px;
+  }
+}
+
+/* Reduced motion must preserve every real photograph, only removing motion. */
+@media (prefers-reduced-motion: reduce) {
+  .tour-scene {
+    height: auto;
+  }
+
+  .tour-scene__stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    display: block;
+  }
+
+  .tour-scene__camera {
+    position: relative;
+    inset: auto;
+    display: grid;
+    gap: 2px;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .tour-scene__frame,
+  .tour-scene__frame:not(:first-child) {
+    position: relative;
+    inset: auto;
+    display: block;
+    height: min(78svh, 760px);
+    opacity: 1 !important;
+    transition: none !important;
+    will-change: auto;
+  }
+
+  .tour-scene__veil {
+    display: none;
+  }
+
+  .tour-scene__copy {
+    padding-top: 24px;
+    padding-bottom: 64px;
+  }
 }
