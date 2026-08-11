@@ -1,0 +1,9 @@
+/* WCAG AA contrast mapping for semantic accent labels. */
+.eyebrow {
+  color: var(--accent-strong);
+}
+
+.hero .eyebrow,
+.tour .eyebrow {
+  color: var(--accent-soft);
+}
