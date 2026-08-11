@@ -1,7 +1,7 @@
 'use client';
 
 import { Home, Menu, MessageCircle, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { property, whatsappUrl } from '@/content/property';
 import { TrackedLink } from '@/components/TrackedLink';
 
@@ -15,14 +15,24 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
+  const toggleRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
+    if (!open) return;
+
+    navRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
+
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      setOpen(false);
+      toggleRef.current?.focus();
     }
+
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
+  }, [open]);
 
   return (
     <header className="site-header">
@@ -31,7 +41,12 @@ export function Header() {
         <span><b>São João</b><small>Araguaína - TO</small></span>
       </a>
 
-      <nav className={open ? 'site-nav is-open' : 'site-nav'} aria-label="Principal" id="menu-principal">
+      <nav
+        className={open ? 'site-nav is-open' : 'site-nav'}
+        aria-label="Principal"
+        id="menu-principal"
+        ref={navRef}
+      >
         {links.map(([label, href]) => (
           <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>
         ))}
@@ -55,6 +70,7 @@ export function Header() {
         aria-controls="menu-principal"
         aria-label={open ? 'Fechar menu' : 'Abrir menu'}
         onClick={() => setOpen((value) => !value)}
+        ref={toggleRef}
       >
         {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
       </button>
