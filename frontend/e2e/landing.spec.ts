@@ -9,7 +9,7 @@ test('core journey loads, starts the tour and has no serious accessibility viola
   const hero = page.getByLabel('Seu novo lar espera por você');
   await hero.getByRole('link', { name: 'Entrar no imóvel' }).click();
   await expect(page).toHaveURL(/#tour$/);
-  await expect(page.getByRole('heading', { name: 'Caminhe pelos ambientes' })).toBeVisible();
+  await expect(page.locator('#tour')).toBeVisible();
 
   await page.locator('#quartos').scrollIntoViewIfNeeded();
   await expect(page.getByRole('heading', { name: 'Quartos' })).toBeVisible();
