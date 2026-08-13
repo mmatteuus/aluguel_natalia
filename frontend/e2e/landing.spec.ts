@@ -7,7 +7,7 @@ test('core journey loads, starts the tour and has no serious accessibility viola
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Seu novo lar');
 
   const hero = page.getByLabel('Seu novo lar espera por voc\u00EA');
-  await hero.getByRole('link', { name: 'Entrar no im\u00EDvel' }).click();
+  await hero.getByRole('link', { name: 'Entrar no im\u00F3vel' }).click();
   await expect(page).toHaveURL(/#tour$/);
   await expect(page.locator('#tour')).toBeVisible();
 
