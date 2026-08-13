@@ -21,13 +21,6 @@ export function Tour() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let frame = 0;
 
-    const recordRoomView = (index: number) => {
-      if (seenRooms.current.has(index)) return;
-      seenRooms.current.add(index);
-      track('Room Viewed', { room: property.rooms[index].name, position: index + 1 });
-      if (index === property.rooms.length - 1) track('Tour Completed');
-    };
-
     const updateScenes = () => {
       frame = 0;
       const viewportHeight = window.innerHeight;
@@ -72,7 +65,11 @@ export function Tour() {
         setActive(bestIndex);
       }
 
-      if (bestVisibility > 0.32) recordRoomView(bestIndex);
+      if (bestVisibility > 0.32 && !seenRooms.current.has(bestIndex)) {
+        seenRooms.current.add(bestIndex);
+        track('Room Viewed', { room: property.rooms[bestIndex].name, position: bestIndex + 1 });
+        if (bestIndex === property.rooms.length - 1) track('Tour Completed');
+      }
     };
 
     const scheduleUpdate = () => {
@@ -99,7 +96,6 @@ export function Tour() {
       const index = Number((visible.target as HTMLElement).dataset.index ?? 0);
       activeRef.current = index;
       setActive(index);
-      recordRoomView(index);
     }, { threshold: [0.35, 0.6] });
 
     sceneRefs.current.forEach((node) => node && observer.observe(node));
@@ -164,7 +160,7 @@ export function Tour() {
                   >
                     <Image
                       src={roomFrame.image}
-                      alt={roomFrame.alt}
+                      alt={frameIndex === 0 ? roomFrame.alt : ''}
                       fill
                       sizes="100vw"
                       className="tour-scene__image"
