@@ -8,7 +8,7 @@ import { TrackedLink } from '@/components/TrackedLink';
 const links = [
   ['Início', '#inicio'],
   ['O imóvel', '#imovel'],
-  ['Tour', '#tour'],
+  ['Galeria', '#galeria'],
   ['Localização', '#localizacao'],
   ['Contato', '#contato']
 ] as const;

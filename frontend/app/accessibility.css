@@ -3,14 +3,8 @@
   color: var(--accent-strong);
 }
 
-.hero .eyebrow,
-.tour .eyebrow {
+.hero .eyebrow {
   color: var(--accent-soft);
-}
-
-/* Keep the sticky tour navigation clear of the fixed site header */
-.tour__rail {
-  top: 84px;
 }
 
 @media (max-width: 980px) {
@@ -26,50 +20,5 @@
 
   .site-nav.is-open {
     transition: opacity .18s ease, transform .18s ease, visibility 0s linear 0s;
-  }
-}
-
-/* Reduced motion must preserve every real photograph, only removing motion */
-@media (prefers-reduced-motion: reduce) {
-  .tour-scene {
-    height: auto;
-  }
-
-  .tour-scene__stage {
-    position: relative;
-    top: auto;
-    height: auto;
-    min-height: 0;
-    overflow: visible;
-    display: block;
-  }
-
-  .tour-scene__camera {
-    position: relative;
-    inset: auto;
-    display: grid;
-    gap: 2px;
-    transform: none !important;
-    will-change: auto;
-  }
-
-  .tour-scene__frame,
-  .tour-scene__frame:not(:first-child) {
-    position: relative;
-    inset: auto;
-    display: block;
-    height: min(78svh, 760px);
-    opacity: 1 !important;
-    transition: none !important;
-    will-change: auto;
-  }
-
-  .tour-scene__veil {
-    display: none;
-  }
-
-  .tour-scene__copy {
-    padding-top: 24px;
-    padding-bottom: 64px;
   }
 }

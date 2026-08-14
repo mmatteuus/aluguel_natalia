@@ -1,7 +1,7 @@
 const footerLinks = [
   ['Início', '#inicio'],
   ['O imóvel', '#imovel'],
-  ['Tour', '#tour'],
+  ['Galeria', '#galeria'],
   ['Localização', '#localizacao'],
   ['Contato', '#contato']
 ] as const;

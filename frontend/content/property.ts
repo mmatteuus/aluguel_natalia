@@ -1,14 +1,12 @@
 export type RoomFrame = {
   image: string;
   alt: string;
-  position?: string;
 };
 
 export type Room = {
   id: string;
   name: string;
   summary: string;
-  motion: 'push' | 'pan-left' | 'pan-right' | 'rise';
   frames: RoomFrame[];
 };
 
@@ -37,77 +35,69 @@ export const property = {
     {
       id: 'entrada',
       name: 'Entrada',
-      summary: 'A sala comprida conduz o olhar da entrada para os demais ambientes do térreo.',
-      motion: 'push',
+      summary: 'O hall de entrada é o primeiro ambiente do sobrado no piso térreo.',
       frames: [
-        { image: '/images/sala-entrada.avif', alt: 'Entrada do sobrado vista pela sala ampla', position: 'center 56%' },
-        { image: '/images/sala-lateral.avif', alt: 'Sala ampla vista por um segundo ângulo', position: 'center 56%' }
+        { image: '/images/hall-entrada.avif', alt: 'Hall de entrada do sobrado' }
       ]
     },
     {
       id: 'sala',
       name: 'Sala',
-      summary: 'Sala e cozinha aparecem conectadas visualmente, com a escada ao fundo.',
-      motion: 'pan-left',
+      summary: 'A sala de estar se abre a partir do hall de entrada.',
       frames: [
-        { image: '/images/sala-integrada.avif', alt: 'Sala integrada com cozinha e escada ao fundo', position: 'center 58%' }
+        { image: '/images/sala-estar.avif', alt: 'Sala de estar vista do hall de entrada' }
       ]
     },
     {
       id: 'cozinha',
       name: 'Cozinha',
-      summary: 'Bancada em granito, armários inferiores e revestimento decorativo formam o ponto de destaque.',
-      motion: 'push',
+      summary: 'A cozinha do sobrado aparece em fotografia real do piso térreo.',
       frames: [
-        { image: '/images/cozinha.avif', alt: 'Cozinha com bancada de granito e revestimento decorativo', position: 'center 54%' }
+        { image: '/images/cozinha.avif', alt: 'Cozinha do sobrado' }
       ]
     },
     {
       id: 'escada',
       name: 'Escada',
-      summary: 'A sequência de fotos permite acompanhar a subida em granito até o piso superior.',
-      motion: 'rise',
+      summary: 'Duas fotografias mostram a escada, do térreo até os degraus.',
       frames: [
-        { image: '/images/escada-terreo.avif', alt: 'Escada em granito vista a partir do térreo', position: 'center 58%' },
-        { image: '/images/escada-subida.avif', alt: 'Escada em granito e guarda-corpo metálico durante a subida', position: 'center 50%' }
+        { image: '/images/escada-geral.avif', alt: 'Escada do sobrado vista do térreo' },
+        { image: '/images/escada-degraus.avif', alt: 'Degraus da escada do sobrado vistos de perto' }
       ]
     },
     {
       id: 'superior',
       name: 'Piso superior',
-      summary: 'O corredor distribui o acesso aos ambientes do segundo pavimento.',
-      motion: 'push',
+      summary: 'A parte superior da escada conecta a circulação do segundo pavimento.',
       frames: [
-        { image: '/images/corredor-superior.avif', alt: 'Circulação do piso superior com guarda-corpo metálico', position: 'center 58%' }
+        { image: '/images/superior-circulacao.avif', alt: 'Parte superior da escada e circulação do piso superior' }
       ]
     },
     {
       id: 'quartos',
       name: 'Quartos',
-      summary: 'Duas fotografias mostram dormitórios com piso claro, janelas e teto trabalhado.',
-      motion: 'pan-right',
+      summary: 'Três fotografias mostram os dormitórios do piso superior, incluindo a entrada da suíte.',
       frames: [
-        { image: '/images/quarto-01.avif', alt: 'Primeiro quarto com janela horizontal e teto trabalhado', position: 'center 58%' },
-        { image: '/images/quarto-02.avif', alt: 'Segundo quarto com piso claro e iluminação natural', position: 'center 58%' }
+        { image: '/images/quarto-01.avif', alt: 'Primeiro quarto do sobrado' },
+        { image: '/images/quarto-02.avif', alt: 'Segundo quarto do sobrado' },
+        { image: '/images/suite-entrada.avif', alt: 'Entrada da suíte no piso superior' }
       ]
     },
     {
       id: 'banheiro',
       name: 'Banheiros',
-      summary: 'O banheiro social tem box de vidro e bancada em granito; o lavabo fica no térreo.',
-      motion: 'push',
+      summary: 'O banheiro social e o lavabo aparecem em fotografias reais.',
       frames: [
-        { image: '/images/banheiro.avif', alt: 'Banheiro social com bancada em granito e box de vidro', position: 'center 52%' },
-        { image: '/images/lavabo.avif', alt: 'Lavabo do piso térreo com bancada em granito', position: 'center 52%' }
+        { image: '/images/banheiro-social.avif', alt: 'Banheiro social do sobrado' },
+        { image: '/images/lavabo.avif', alt: 'Lavabo do sobrado' }
       ]
     },
     {
       id: 'servico',
       name: 'Área de serviço',
-      summary: 'Área coberta com tanque e pontos hidráulicos visíveis nas fotografias.',
-      motion: 'pan-left',
+      summary: 'A área de serviço coberta aparece em fotografia real.',
       frames: [
-        { image: '/images/area-servico.avif', alt: 'Área de serviço coberta com tanque', position: 'center 54%' }
+        { image: '/images/area-servico.avif', alt: 'Área de serviço coberta do sobrado' }
       ]
     }
   ] satisfies Room[]

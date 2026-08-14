@@ -8,7 +8,7 @@ export function ContactCta() {
       <div className="container contact-cta__inner">
         <div>
           <p className="eyebrow">Pronto para conhecer?</p>
-          <h2 id="contact-title">Depois do tour digital, agende a visita presencial.</h2>
+          <h2 id="contact-title">Depois de ver as fotos, agende a visita presencial.</h2>
           <p>O contato abre diretamente no WhatsApp com uma mensagem sobre este endereço.</p>
         </div>
         <div className="contact-cta__actions">

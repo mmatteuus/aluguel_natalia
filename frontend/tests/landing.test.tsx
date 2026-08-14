@@ -1,17 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { Footer } from '@/components/Footer';
+import { Gallery } from '@/components/Gallery';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { StructuredData } from '@/components/StructuredData';
+
+vi.mock('@vercel/analytics', () => ({ track: vi.fn() }));
 
 describe('landing essentials', () => {
   it('exposes the price, address and primary visit actions', () => {
     render(<Hero />);
     expect(screen.getByText('R$ 2.400/mês')).toBeInTheDocument();
     expect(screen.getByText(/R\. Dois de Julho, 110/)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Entrar no imóvel/i })).toHaveAttribute('href', '#tour');
+    expect(screen.getByRole('link', { name: /Ver fotos/i })).toHaveAttribute('href', '#galeria');
     expect(screen.getByRole('link', { name: /Agendar visita/i })).toHaveAttribute('href');
   });
 
@@ -38,5 +41,39 @@ describe('landing essentials', () => {
     expect(script).not.toBeNull();
     expect(script?.textContent).toContain('SingleFamilyResidence');
     expect(script?.textContent).toContain('Offer');
+  });
+});
+
+describe('gallery', () => {
+  it('renders all 12 real photographs as expandable tiles', () => {
+    render(<Gallery />);
+    expect(screen.getByRole('heading', { name: 'As fotos do sobrado' })).toBeInTheDocument();
+    expect(screen.getAllByRole('button')).toHaveLength(12);
+  });
+
+  it('opens the lightbox, navigates with arrow keys and closes with Escape', async () => {
+    const user = userEvent.setup();
+    render(<Gallery />);
+    await user.click(screen.getByRole('button', { name: /Hall de entrada do sobrado/ }));
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeVisible();
+    expect(dialog).toHaveTextContent('1 / 12');
+    await user.keyboard('{ArrowRight}');
+    expect(dialog).toHaveTextContent('2 / 12');
+    await user.keyboard('{ArrowLeft}');
+    expect(dialog).toHaveTextContent('1 / 12');
+    await user.keyboard('{Escape}');
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('closes the lightbox with the close button and restores focus to the tile', async () => {
+    const user = userEvent.setup();
+    render(<Gallery />);
+    const tile = screen.getByRole('button', { name: /Sala de estar vista do hall de entrada/ });
+    await user.click(tile);
+    const dialog = screen.getByRole('dialog');
+    await user.click(screen.getByRole('button', { name: 'Fechar galeria' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(document.activeElement).toBe(tile);
   });
 });

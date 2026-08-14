@@ -9,8 +9,8 @@ export function Hero() {
   return (
     <section className="hero" id="inicio" aria-labelledby="hero-title">
       <Image
-        src="/images/sala-integrada.avif"
-        alt="Sala integrada do sobrado com cozinha e escada ao fundo"
+        src="/images/hall-entrada.avif"
+        alt="Hall de entrada do sobrado"
         fill
         priority
         sizes="100vw"
@@ -34,8 +34,8 @@ export function Hero() {
         </div>
 
         <div className="hero__actions">
-          <TrackedLink className="button button--primary" href="#tour" eventName="Tour Start" eventData={{ source: 'hero' }}>
-            Entrar no imóvel <ArrowRight size={20} aria-hidden="true" />
+          <TrackedLink className="button button--primary" href="#galeria" eventName="Gallery Start" eventData={{ source: 'hero' }}>
+            Ver fotos <ArrowRight size={20} aria-hidden="true" />
           </TrackedLink>
           <TrackedLink className="button button--ghost" href={whatsappUrl} target="_blank" rel="noopener noreferrer" eventName="Schedule Visit" eventData={{ source: 'hero' }}>
             <CalendarDays size={20} aria-hidden="true" /> Agendar visita
@@ -45,7 +45,7 @@ export function Hero() {
           </TrackedLink>
         </div>
       </div>
-      <a className="hero__scroll" href="#tour">Role para explorar <span aria-hidden="true">↓</span></a>
+      <a className="hero__scroll" href="#galeria">Role para explorar <span aria-hidden="true">↓</span></a>
     </section>
   );
 }

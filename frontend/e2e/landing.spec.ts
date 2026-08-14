@@ -1,18 +1,27 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-test('core journey loads, starts the tour and has no serious accessibility violations', async ({ page }) => {
+test('core journey loads, shows the photo gallery and has no serious accessibility violations', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveTitle(/Sobrado para Alugar/i);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Seu novo lar');
 
-  const hero = page.getByLabel('Seu novo lar espera por voc\u00EA');
-  await hero.getByRole('link', { name: 'Entrar no im\u00F3vel' }).click();
-  await expect(page).toHaveURL(/#tour$/);
-  await expect(page.locator('#tour')).toBeVisible();
+  const hero = page.getByLabel('Seu novo lar espera por você');
+  await hero.getByRole('link', { name: 'Ver fotos' }).click();
+  await expect(page).toHaveURL(/#galeria$/);
+  await expect(page.locator('#galeria')).toBeVisible();
 
   await page.locator('#quartos').scrollIntoViewIfNeeded();
-  await expect(page.getByRole('heading', { name: 'Quartos' })).toBeVisible();
+  await expect(page.locator('#quartos').getByRole('heading', { name: 'Quartos' })).toBeVisible();
+
+  await page.getByRole('button', { name: 'Hall de entrada do sobrado' }).click();
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toContainText('1 / 12');
+  await page.keyboard.press('ArrowRight');
+  await expect(dialog).toContainText('2 / 12');
+  await dialog.getByRole('button', { name: 'Fechar galeria' }).click();
+  await expect(dialog).not.toBeVisible();
 
   const scan = await new AxeBuilder({ page }).analyze();
   const blocking = scan.violations.filter((violation) => ['critical', 'serious'].includes(violation.impact ?? ''));
