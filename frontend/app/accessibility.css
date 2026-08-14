@@ -1,17 +1,17 @@
 /* Accessibility and semantic-token overrides loaded after globals.css. */
 :root {
-  --muted: #6f5949;
-  --accent: #a2461f;
+  --muted: #5a4635;
+  --accent: #8f3f1c;
   --font-display: var(--font-playfair, 'Playfair Display', 'Iowan Old Style', Georgia, serif);
   --font-body: var(--font-lato, Lato, 'Avenir Next', Helvetica, Arial, sans-serif);
 }
 
 .footer {
-  color: rgba(255, 255, 255, .78);
+  color: #d1cdca;
 }
 
 .footer__credit {
-  color: rgba(255, 255, 255, .76);
+  color: #ccc8c5;
 }
 
 @media (max-width: 980px) {
