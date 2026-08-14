@@ -1,19 +1,20 @@
-/* WCAG AA contrast mapping for semantic accent labels */
-.eyebrow {
-  color: var(--accent-strong);
+/* Accessibility and semantic-token overrides loaded after globals.css. */
+:root {
+  --muted: #6f5949;
+  --accent: #a2461f;
+  --font-display: var(--font-playfair, 'Playfair Display', 'Iowan Old Style', Georgia, serif);
+  --font-body: var(--font-lato, Lato, 'Avenir Next', Helvetica, Arial, sans-serif);
 }
 
-.hero .eyebrow {
-  color: var(--accent-soft);
+.footer {
+  color: rgba(255, 255, 255, .78);
+}
+
+.footer__credit {
+  color: rgba(255, 255, 255, .76);
 }
 
 @media (max-width: 980px) {
-  :root {
-    --header-height: 72px;
-  }
-
-  /* Visibility is immediate when opening so focus can enter the menu.
-     It is delayed only while closing so the opacity/transform exit remains visible */
   .site-nav {
     transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
   }
