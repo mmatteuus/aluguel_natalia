@@ -79,7 +79,6 @@ describe('gallery', () => {
     render(<Gallery />);
     const tile = screen.getByRole('button', { name: /Sala de estar vista do hall de entrada/ });
     await user.click(tile);
-    const dialog = screen.getByRole('dialog');
     await user.click(screen.getByRole('button', { name: 'Fechar galeria' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(document.activeElement).toBe(tile);
