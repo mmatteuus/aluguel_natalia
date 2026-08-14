@@ -18,13 +18,21 @@ describe('landing essentials', () => {
     expect(screen.getByRole('link', { name: /Agendar visita/i })).toHaveAttribute('href');
   });
 
-  it('opens and closes the mobile navigation with an accessible button', async () => {
+  it('moves focus into the mobile navigation and restores it on Escape', async () => {
     const user = userEvent.setup();
     render(<Header />);
     const button = screen.getByRole('button', { name: 'Abrir menu' });
     expect(button).toHaveAttribute('aria-expanded', 'false');
+
     await user.click(button);
+
     expect(screen.getByRole('button', { name: 'Fechar menu' })).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('link', { name: 'Início' })).toHaveFocus();
+
+    await user.keyboard('{Escape}');
+
+    expect(button).toHaveFocus();
+    expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('keeps the mandatory MtsFerreira footer credit', () => {
