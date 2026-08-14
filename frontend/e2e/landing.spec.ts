@@ -33,8 +33,11 @@ test('mobile navigation and contact bar stay available', async ({ page }, testIn
   await page.goto('/');
   const menuButton = page.getByRole('button', { name: 'Abrir menu' });
   await menuButton.click();
-  await expect(page.getByRole('navigation', { name: 'Principal' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Início' })).toBeFocused();
+
+  const primaryNav = page.getByRole('navigation', { name: 'Principal' });
+  await expect(primaryNav).toBeVisible();
+  await expect(primaryNav.getByRole('link', { name: 'Início' })).toBeFocused();
+
   await page.keyboard.press('Escape');
   await expect(menuButton).toBeFocused();
   await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
