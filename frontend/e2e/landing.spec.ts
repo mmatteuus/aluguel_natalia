@@ -28,8 +28,16 @@ test('core journey loads, shows the photo gallery and has no serious accessibili
 test('mobile navigation and contact bar stay available', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.includes('mobile'), 'mobile-only assertion');
   await page.goto('/');
-  await page.getByRole('button', { name: 'Abrir menu' }).click();
-  await expect(page.getByRole('navigation', { name: 'Principal' })).toBeVisible();
+  const menuButton = page.getByRole('button', { name: 'Abrir menu' });
+  await menuButton.click();
+
+  const primaryNav = page.getByRole('navigation', { name: 'Principal' });
+  await expect(primaryNav).toBeVisible();
+  await expect(primaryNav.getByRole('link', { name: 'Início' })).toBeFocused();
+
+  await page.keyboard.press('Escape');
+  await expect(menuButton).toBeFocused();
+  await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
   await expect(page.getByRole('link', { name: /WhatsApp/i }).last()).toBeVisible();
 });
 

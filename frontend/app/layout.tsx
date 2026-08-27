@@ -9,14 +9,14 @@ import './accessibility.css';
 const playfair = Playfair_Display({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-display',
+  variable: '--font-playfair',
   display: 'swap',
 });
 
 const lato = Lato({
   subsets: ['latin'],
   weight: ['300', '400', '700', '900'],
-  variable: '--font-body',
+  variable: '--font-lato',
   display: 'swap',
 });
 

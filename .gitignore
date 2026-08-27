@@ -4,6 +4,8 @@ frontend/coverage/
 frontend/test-results/
 frontend/playwright-report/
 frontend/.vercel/
+frontend/test-results/
+*.tsbuildinfo
 *.log
 *.tsbuildinfo
 .DS_Store
