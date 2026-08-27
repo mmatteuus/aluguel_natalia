@@ -18,6 +18,13 @@ const photos: Photo[] = property.rooms.flatMap((room) =>
 
 const total = photos.length;
 
+function clearRoomHash() {
+  if (typeof window === 'undefined') return;
+
+  const isRoomHash = property.rooms.some((room) => window.location.hash === `#${room.id}`);
+  if (isRoomHash) window.history.replaceState(null, '', '#galeria');
+}
+
 export function Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -45,6 +52,21 @@ export function Gallery() {
   }, []);
 
   useEffect(() => {
+    function openRoomFromHash() {
+      const roomId = window.location.hash.slice(1);
+      const index = photos.findIndex((photo) => photo.isFirst && photo.room.id === roomId);
+      if (index === -1) return;
+
+      setActiveIndex(index);
+      track('Photo View', { photo: photos[index].frame.alt, position: index + 1 });
+    }
+
+    openRoomFromHash();
+    window.addEventListener('hashchange', openRoomFromHash);
+    return () => window.removeEventListener('hashchange', openRoomFromHash);
+  }, []);
+
+  useEffect(() => {
     if (activeIndex === null) return;
     const previousFocus = document.activeElement as HTMLElement | null;
     document.body.style.overflow = 'hidden';
@@ -61,6 +83,7 @@ export function Gallery() {
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
+        clearRoomHash();
         setActiveIndex(null);
       } else if (event.key === 'ArrowLeft') {
         setActiveIndex((index) => (index === null ? index : (index - 1 + total) % total));
@@ -96,7 +119,7 @@ export function Gallery() {
         <div className="section-heading">
           <p className="eyebrow">Fotografias reais</p>
           <h2 id="gallery-title">As fotos do sobrado</h2>
-          <p>As 12 fotografias fornecidas mostram a entrada, a sala, a cozinha, a escada, o piso superior, os quartos e a suíte, o banheiro social, o lavabo e a área de serviço.</p>
+          <p>As fotos mostram a entrada, a sala, a cozinha, a escada, o piso superior, os quartos e a suíte, o banheiro social, o lavabo e a área de serviço.</p>
         </div>
 
         <div className="gallery__grid">
@@ -116,13 +139,12 @@ export function Gallery() {
                   src={photo.frame.image}
                   alt={photo.frame.alt}
                   fill
-                  sizes="(max-width: 620px) 100vw, (max-width: 980px) 50vw, 25vw"
+                  sizes="(max-width: 620px) 100vw, (max-width: 980px) 50vw, 33vw"
                 />
                 <span className="gallery-tile__zoom" aria-hidden="true"><ZoomIn size={18} /></span>
               </button>
               <figcaption>
                 <h3>{photo.room.name}</h3>
-                <span>{photo.room.summary}</span>
               </figcaption>
             </figure>
           ))}
@@ -143,7 +165,7 @@ export function Gallery() {
             <b>{photos[activeIndex].room.name}</b>
             <span aria-live="polite">{activeIndex + 1} / {total}</span>
           </p>
-          <button className="lightbox__close" type="button" ref={closeRef} aria-label="Fechar galeria" onClick={() => setActiveIndex(null)}>
+          <button className="lightbox__close" type="button" ref={closeRef} aria-label="Fechar galeria" onClick={() => { clearRoomHash(); setActiveIndex(null); }}>
             <X size={22} aria-hidden="true" />
           </button>
           <button className="lightbox__prev" type="button" aria-label="Foto anterior" onClick={() => setActiveIndex((index) => (index === null ? index : (index - 1 + total) % total))}>

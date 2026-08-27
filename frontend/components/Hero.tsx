@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ArrowRight, BedDouble, CalendarDays, CarFront, MapPin, MessageCircle, ShowerHead, Toilet } from 'lucide-react';
+import { ArrowRight, BedDouble, CarFront, MapPin, MessageCircle, ShowerHead, Toilet } from 'lucide-react';
 import { property, whatsappUrl } from '@/content/property';
 import { TrackedLink } from '@/components/TrackedLink';
 
@@ -20,7 +20,7 @@ export function Hero() {
       <div className="container hero__content">
         <p className="eyebrow">{property.eyebrow}</p>
         <h1 id="hero-title">{property.title}</h1>
-        <p className="hero__lead">Conheça os ambientes pelas fotografias reais do sobrado no bairro São João, em Araguaína.</p>
+        <p className="hero__lead">Conheça os ambientes pelas fotografias reais do sobrado que fica no bairro São João, em Araguaína.</p>
 
         <div className="property-card" aria-label="Resumo do imóvel">
           <strong>{property.price}</strong>
@@ -34,14 +34,11 @@ export function Hero() {
         </div>
 
         <div className="hero__actions">
-          <TrackedLink className="button button--primary" href="#galeria" eventName="Gallery Start" eventData={{ source: 'hero' }}>
+          <TrackedLink className="button button--primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer" eventName="Schedule Visit" eventData={{ source: 'hero' }}>
+            <MessageCircle size={20} aria-hidden="true" /> Agendar visita pelo WhatsApp
+          </TrackedLink>
+          <TrackedLink className="button button--ghost" href="#galeria" eventName="Gallery Start" eventData={{ source: 'hero' }}>
             Ver fotos <ArrowRight size={20} aria-hidden="true" />
-          </TrackedLink>
-          <TrackedLink className="button button--ghost" href={whatsappUrl} target="_blank" rel="noopener noreferrer" eventName="Schedule Visit" eventData={{ source: 'hero' }}>
-            <CalendarDays size={20} aria-hidden="true" /> Agendar visita
-          </TrackedLink>
-          <TrackedLink className="button button--whatsapp" href={whatsappUrl} target="_blank" rel="noopener noreferrer" eventName="WhatsApp Click" eventData={{ source: 'hero' }}>
-            <MessageCircle size={20} aria-hidden="true" /> WhatsApp {property.phone}
           </TrackedLink>
         </div>
       </div>

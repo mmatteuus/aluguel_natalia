@@ -7,7 +7,6 @@ import { TrackedLink } from '@/components/TrackedLink';
 
 const links = [
   ['Início', '#inicio'],
-  ['O imóvel', '#imovel'],
   ['Galeria', '#galeria'],
   ['Localização', '#localizacao'],
   ['Contato', '#contato']
@@ -28,7 +27,7 @@ export function Header() {
     <header className="site-header">
       <a className="brand" href="#inicio" aria-label="São João, início" onClick={() => setOpen(false)}>
         <span className="brand__mark"><Home size={22} aria-hidden="true" /></span>
-        <span><b>São João</b><small>Araguaína - TO</small></span>
+        <span><b>{property.neighborhood}</b><small>{property.city} - {property.state}</small></span>
       </a>
 
       <nav className={open ? 'site-nav is-open' : 'site-nav'} aria-label="Principal" id="menu-principal">
@@ -45,7 +44,7 @@ export function Header() {
         eventName="WhatsApp Click"
         eventData={{ source: 'header' }}
       >
-        <MessageCircle size={18} aria-hidden="true" /> {property.phone}
+        <MessageCircle size={18} aria-hidden="true" /> WhatsApp
       </TrackedLink>
 
       <button

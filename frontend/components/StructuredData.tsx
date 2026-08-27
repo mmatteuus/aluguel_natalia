@@ -10,14 +10,14 @@ export function StructuredData() {
         '@type': 'WebPage',
         '@id': `${siteUrl}/#webpage`,
         url: siteUrl,
-        name: 'Sobrado para alugar no São João em Araguaína',
+        name: 'Sobrado para alugar no bairro São João em Araguaína',
         description: 'Sobrado para aluguel com 3 quartos, 2 banheiros, 1 lavabo e 2 vagas no bairro São João, em Araguaína - TO.',
         mainEntity: { '@id': residenceId }
       },
       {
         '@type': 'SingleFamilyResidence',
         '@id': residenceId,
-        name: 'Sobrado para alugar no São João',
+        name: 'Sobrado para alugar no bairro São João',
         image: `${siteUrl}/images/og-sobrado.jpg`,
         numberOfBedrooms: 3,
         address: {

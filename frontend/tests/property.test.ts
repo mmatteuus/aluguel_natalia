@@ -3,8 +3,10 @@ import { mapsUrl, property, whatsappUrl } from '@/content/property';
 
 describe('property content contract', () => {
   it('keeps the known listing facts and the eight-room structure', () => {
-    expect(property.price).toBe('R$ 2.400/mês');
+    expect(property.price).toBe('R$ 2.200/mês');
     expect(property.facts.map((fact) => fact.value)).toEqual(['3', '2', '1', '2']);
+    expect(property.neighborhood).toBe('Bairro São João');
+    expect(property.phone).toBe('+55 63 99225-7802');
     expect(property.rooms).toHaveLength(8);
     expect(property.rooms[0].name).toBe('Entrada');
     expect(property.rooms.at(-1)?.name).toBe('Área de serviço');

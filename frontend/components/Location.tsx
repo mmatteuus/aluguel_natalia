@@ -9,7 +9,7 @@ export function Location() {
         <MapPin size={28} aria-hidden="true" />
         <div>
           <p className="eyebrow">Localização</p>
-          <h2 id="location-title">São João, Araguaína</h2>
+          <h2 id="location-title">{property.neighborhood}, {property.city}</h2>
           <p>{property.address}</p>
         </div>
         <TrackedLink className="button button--dark" href={mapsUrl} target="_blank" rel="noopener noreferrer" eventName="Map Open">

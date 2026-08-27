@@ -12,10 +12,16 @@ vi.mock('@vercel/analytics', () => ({ track: vi.fn() }));
 describe('landing essentials', () => {
   it('exposes the price, address and primary visit actions', () => {
     render(<Hero />);
-    expect(screen.getByText('R$ 2.400/mês')).toBeInTheDocument();
+    expect(screen.getByText('R$ 2.200/mês')).toBeInTheDocument();
     expect(screen.getByText(/R\. Dois de Julho, 110/)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Ver fotos/i })).toHaveAttribute('href', '#galeria');
     expect(screen.getByRole('link', { name: /Agendar visita/i })).toHaveAttribute('href');
+  });
+
+  it('keeps the hero focused on two conversion actions', () => {
+    const { container } = render(<Hero />);
+    expect(container.querySelectorAll('.hero__actions a')).toHaveLength(2);
+    expect(screen.getByRole('link', { name: /Agendar visita pelo WhatsApp/i })).toHaveAttribute('href', expect.stringContaining('wa.me'));
   });
 
   it('opens and closes the mobile navigation with an accessible button', async () => {
@@ -49,6 +55,7 @@ describe('gallery', () => {
     render(<Gallery />);
     expect(screen.getByRole('heading', { name: 'As fotos do sobrado' })).toBeInTheDocument();
     expect(screen.getAllByRole('button')).toHaveLength(12);
+    expect(screen.queryByText('O hall de entrada é o primeiro ambiente do sobrado no piso térreo.')).not.toBeInTheDocument();
   });
 
   it('opens the lightbox, navigates with arrow keys and closes with Escape', async () => {
