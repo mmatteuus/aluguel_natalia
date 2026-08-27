@@ -15,12 +15,12 @@ export const property = {
   price: 'R$ 2.200/mês',
   numericPrice: 2200,
   currency: 'BRL',
-  address: 'R. Dois de Julho, 110 - Bairro São João, Araguaína - TO, 77805-130',
-  streetAddress: 'R. Dois de Julho, 110',
+  address: 'R. Muricizal, 730 - São João, Araguaína - TO, 77807-020',
+  streetAddress: 'R. Muricizal, 730',
   neighborhood: 'Bairro São João',
   city: 'Araguaína',
   state: 'TO',
-  postalCode: '77805-130',
+  postalCode: '77807-020',
   country: 'BR',
   phone: '+55 63 99225-7802',
   whatsapp: '5563992257802',
@@ -95,7 +95,7 @@ export const property = {
 } as const;
 
 export const whatsappUrl = `https://wa.me/${property.whatsapp}?text=${encodeURIComponent(
-  'Olá! Tenho interesse no sobrado da R. Dois de Julho, 110. Gostaria de agendar uma visita.'
+  'Olá! Tenho interesse no sobrado da R. Muricizal, 730. Gostaria de agendar uma visita.'
 )}`;
 
-export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(property.address)}`;
+export const mapsUrl = 'https://maps.app.goo.gl/hDygWN7hXKEJs8Eu6';

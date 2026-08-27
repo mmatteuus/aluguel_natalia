@@ -24,7 +24,6 @@ describe('property content contract', () => {
   it('builds direct WhatsApp and map links from the listing data', () => {
     expect(whatsappUrl).toContain('wa.me/5563992257802');
     expect(whatsappUrl).toContain('agendar%20uma%20visita');
-    expect(mapsUrl).toContain('google.com/maps/search');
-    expect(decodeURIComponent(mapsUrl)).toContain('R. Dois de Julho, 110');
+    expect(mapsUrl).toBe('https://maps.app.goo.gl/hDygWN7hXKEJs8Eu6');
   });
 });
